@@ -1,0 +1,1576 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_f0cfd2bcd9187ad9e8d9e8428aa47a64 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+    <div style="position: fixed; 
+                top: 10px; right: 10px; width: 220px; height: auto; 
+                background-color: white; border:2px solid grey; z-index:9999; 
+                font-size:12px; padding: 10px; border-radius: 5px;">
+    <h4 style="margin-top: 0;">🗺️ Peta Segmentasi Pelanggan</h4>
+    
+    <p><b>🎨 Warna Marker (Segmen):</b></p>
+    <p style="margin: 2px 0;">🟣 Nighttime Users</p>
+    <p style="margin: 2px 0;">🔵 Morning Users</p>
+    <p style="margin: 2px 0;">🟢 Daytime Users</p>
+    <p style="margin: 2px 0;">🔴 Evening Peak Users</p>
+    <p style="margin: 2px 0;">🟠 Stable Users</p>
+    
+    <p><b>📏 Ukuran Marker (Income):</b></p>
+    <p style="margin: 2px 0;">● Kecil: Low Income</p>
+    <p style="margin: 2px 0;">● Sedang: Medium Income</p>
+    <p style="margin: 2px 0;">● Besar: High Income</p>
+    
+    <p><b>🌟 Intensitas Warna:</b></p>
+    <p style="margin: 2px 0;">Tingkat konsumsi listrik</p>
+    </div>
+    
+    
+            <div class="folium-map" id="map_f0cfd2bcd9187ad9e8d9e8428aa47a64" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_f0cfd2bcd9187ad9e8d9e8428aa47a64 = L.map(
+                "map_f0cfd2bcd9187ad9e8d9e8428aa47a64",
+                {
+                    center: [-2.5, 118.0],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 5,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_e2bd9a3febce06f5f408ca2f3f52254b = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_e2bd9a3febce06f5f408ca2f3f52254b.addTo(map_f0cfd2bcd9187ad9e8d9e8428aa47a64);
+        
+    
+            var circle_marker_1ba08d587afd5ebbd740f36606f3d2f0 = L.circleMarker(
+                [-8.14921, 114.69946],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.5477328480241346, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 16, "stroke": true, "weight": 1}
+            ).addTo(map_f0cfd2bcd9187ad9e8d9e8428aa47a64);
+        
+    
+        var popup_6d8560a46fa30ea949380950fa74b77c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_c050049d5a423455a78d30b604801487 = $(`<div id="html_c050049d5a423455a78d30b604801487" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px; font-family: Arial;">             <h4 style="margin: 0; color: purple;">Nighttime Users</h4>             <hr style="margin: 5px 0;">             <b>📍 Region:</b> Bali<br>             <b>💰 Income Category:</b> High<br>             <b>💵 Rata-rata Income:</b> Rp 35,877,443<br>             <b>⚡ Rata-rata Daya:</b> 158.86 kW<br>             <b>📊 Std Deviasi Daya:</b> 52.14 kW<br>             <b>📈 Jumlah Data:</b> 29 records<br>             <small><i>Ukuran marker = tingkat income<br>             Intensitas warna = tingkat konsumsi</i></small>         </div>         </div>`)[0];
+                popup_6d8560a46fa30ea949380950fa74b77c.setContent(html_c050049d5a423455a78d30b604801487);
+            
+        
+
+        circle_marker_1ba08d587afd5ebbd740f36606f3d2f0.bindPopup(popup_6d8560a46fa30ea949380950fa74b77c)
+        ;
+
+        
+    
+    
+            circle_marker_1ba08d587afd5ebbd740f36606f3d2f0.bindTooltip(
+                `<div>
+                     Nighttime Users - Bali (High Income)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_62ca68703495496b882addc5e3fd1fb4 = L.circleMarker(
+                [-8.467264, 114.786549],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.42129749801520855, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_f0cfd2bcd9187ad9e8d9e8428aa47a64);
+        
+    
+        var popup_0c12b9f22f4e13c9215fd8faf28fa929 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_23dd366949dd7c173dbe5f872efdae23 = $(`<div id="html_23dd366949dd7c173dbe5f872efdae23" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px; font-family: Arial;">             <h4 style="margin: 0; color: purple;">Nighttime Users</h4>             <hr style="margin: 5px 0;">             <b>📍 Region:</b> Bali<br>             <b>💰 Income Category:</b> Low<br>             <b>💵 Rata-rata Income:</b> Rp 4,937,857<br>             <b>⚡ Rata-rata Daya:</b> 97.93 kW<br>             <b>📊 Std Deviasi Daya:</b> 41.77 kW<br>             <b>📈 Jumlah Data:</b> 33 records<br>             <small><i>Ukuran marker = tingkat income<br>             Intensitas warna = tingkat konsumsi</i></small>         </div>         </div>`)[0];
+                popup_0c12b9f22f4e13c9215fd8faf28fa929.setContent(html_23dd366949dd7c173dbe5f872efdae23);
+            
+        
+
+        circle_marker_62ca68703495496b882addc5e3fd1fb4.bindPopup(popup_0c12b9f22f4e13c9215fd8faf28fa929)
+        ;
+
+        
+    
+    
+            circle_marker_62ca68703495496b882addc5e3fd1fb4.bindTooltip(
+                `<div>
+                     Nighttime Users - Bali (Low Income)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6eb292d5539452c987ba3af9e503c1f4 = L.circleMarker(
+                [-8.69572, 115.451557],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.4814061624503624, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12, "stroke": true, "weight": 1}
+            ).addTo(map_f0cfd2bcd9187ad9e8d9e8428aa47a64);
+        
+    
+        var popup_ae95c16a6f0b56b6cda729bb5ef1da7d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_9be9019825b66277d3719127472dfcb7 = $(`<div id="html_9be9019825b66277d3719127472dfcb7" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px; font-family: Arial;">             <h4 style="margin: 0; color: purple;">Nighttime Users</h4>             <hr style="margin: 5px 0;">             <b>📍 Region:</b> Bali<br>             <b>💰 Income Category:</b> Medium<br>             <b>💵 Rata-rata Income:</b> Rp 13,476,702<br>             <b>⚡ Rata-rata Daya:</b> 126.90 kW<br>             <b>📊 Std Deviasi Daya:</b> 50.84 kW<br>             <b>📈 Jumlah Data:</b> 29 records<br>             <small><i>Ukuran marker = tingkat income<br>             Intensitas warna = tingkat konsumsi</i></small>         </div>         </div>`)[0];
+                popup_ae95c16a6f0b56b6cda729bb5ef1da7d.setContent(html_9be9019825b66277d3719127472dfcb7);
+            
+        
+
+        circle_marker_6eb292d5539452c987ba3af9e503c1f4.bindPopup(popup_ae95c16a6f0b56b6cda729bb5ef1da7d)
+        ;
+
+        
+    
+    
+            circle_marker_6eb292d5539452c987ba3af9e503c1f4.bindTooltip(
+                `<div>
+                     Nighttime Users - Bali (Medium Income)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_373e0747a24b9793f2b22f630f015599 = L.circleMarker(
+                [-6.15303, 106.924605],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.626282270203166, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 16, "stroke": true, "weight": 1}
+            ).addTo(map_f0cfd2bcd9187ad9e8d9e8428aa47a64);
+        
+    
+        var popup_4fa218ba86b75908eed39511d989e37e = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_df70a21100c2742ae7ac4119ab953486 = $(`<div id="html_df70a21100c2742ae7ac4119ab953486" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px; font-family: Arial;">             <h4 style="margin: 0; color: purple;">Nighttime Users</h4>             <hr style="margin: 5px 0;">             <b>📍 Region:</b> Jakarta<br>             <b>💰 Income Category:</b> High<br>             <b>💵 Rata-rata Income:</b> Rp 35,984,228<br>             <b>⚡ Rata-rata Daya:</b> 196.72 kW<br>             <b>📊 Std Deviasi Daya:</b> 75.13 kW<br>             <b>📈 Jumlah Data:</b> 17 records<br>             <small><i>Ukuran marker = tingkat income<br>             Intensitas warna = tingkat konsumsi</i></small>         </div>         </div>`)[0];
+                popup_4fa218ba86b75908eed39511d989e37e.setContent(html_df70a21100c2742ae7ac4119ab953486);
+            
+        
+
+        circle_marker_373e0747a24b9793f2b22f630f015599.bindPopup(popup_4fa218ba86b75908eed39511d989e37e)
+        ;
+
+        
+    
+    
+            circle_marker_373e0747a24b9793f2b22f630f015599.bindTooltip(
+                `<div>
+                     Nighttime Users - Jakarta (High Income)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_beedb30d6039d3f9020b26e7b5e64074 = L.circleMarker(
+                [-6.24015, 106.965393],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.43254972903889216, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_f0cfd2bcd9187ad9e8d9e8428aa47a64);
+        
+    
+        var popup_bc3551e79d4cefcc77cef4fd5df4c348 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_0ad1a8c04a485e436cf713ef0640c34a = $(`<div id="html_0ad1a8c04a485e436cf713ef0640c34a" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px; font-family: Arial;">             <h4 style="margin: 0; color: purple;">Nighttime Users</h4>             <hr style="margin: 5px 0;">             <b>📍 Region:</b> Jakarta<br>             <b>💰 Income Category:</b> Low<br>             <b>💵 Rata-rata Income:</b> Rp 4,936,602<br>             <b>⚡ Rata-rata Daya:</b> 103.35 kW<br>             <b>📊 Std Deviasi Daya:</b> 43.48 kW<br>             <b>📈 Jumlah Data:</b> 16 records<br>             <small><i>Ukuran marker = tingkat income<br>             Intensitas warna = tingkat konsumsi</i></small>         </div>         </div>`)[0];
+                popup_bc3551e79d4cefcc77cef4fd5df4c348.setContent(html_0ad1a8c04a485e436cf713ef0640c34a);
+            
+        
+
+        circle_marker_beedb30d6039d3f9020b26e7b5e64074.bindPopup(popup_bc3551e79d4cefcc77cef4fd5df4c348)
+        ;
+
+        
+    
+    
+            circle_marker_beedb30d6039d3f9020b26e7b5e64074.bindTooltip(
+                `<div>
+                     Nighttime Users - Jakarta (Low Income)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_2dca09efb21f9b4553eddebfb9627738 = L.circleMarker(
+                [-6.132864, 106.746264],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.4676092652977689, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12, "stroke": true, "weight": 1}
+            ).addTo(map_f0cfd2bcd9187ad9e8d9e8428aa47a64);
+        
+    
+        var popup_72eb23d5319fb8147a989d4c9254cd9c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_bce778cc088de6608f32e8f061c0f2e6 = $(`<div id="html_bce778cc088de6608f32e8f061c0f2e6" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px; font-family: Arial;">             <h4 style="margin: 0; color: purple;">Nighttime Users</h4>             <hr style="margin: 5px 0;">             <b>📍 Region:</b> Jakarta<br>             <b>💰 Income Category:</b> Medium<br>             <b>💵 Rata-rata Income:</b> Rp 14,722,591<br>             <b>⚡ Rata-rata Daya:</b> 120.25 kW<br>             <b>📊 Std Deviasi Daya:</b> 44.06 kW<br>             <b>📈 Jumlah Data:</b> 31 records<br>             <small><i>Ukuran marker = tingkat income<br>             Intensitas warna = tingkat konsumsi</i></small>         </div>         </div>`)[0];
+                popup_72eb23d5319fb8147a989d4c9254cd9c.setContent(html_bce778cc088de6608f32e8f061c0f2e6);
+            
+        
+
+        circle_marker_2dca09efb21f9b4553eddebfb9627738.bindPopup(popup_72eb23d5319fb8147a989d4c9254cd9c)
+        ;
+
+        
+    
+    
+            circle_marker_2dca09efb21f9b4553eddebfb9627738.bindTooltip(
+                `<div>
+                     Nighttime Users - Jakarta (Medium Income)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c02a1029192b2fcbf64831bc25c5bf39 = L.circleMarker(
+                [-6.638786, 107.320384],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.549525749402967, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 16, "stroke": true, "weight": 1}
+            ).addTo(map_f0cfd2bcd9187ad9e8d9e8428aa47a64);
+        
+    
+        var popup_65f4d64fc90d2e96ca0754a89a14b545 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ffb45926711e042e08b553b2fec8d7d5 = $(`<div id="html_ffb45926711e042e08b553b2fec8d7d5" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px; font-family: Arial;">             <h4 style="margin: 0; color: purple;">Nighttime Users</h4>             <hr style="margin: 5px 0;">             <b>📍 Region:</b> Jawa Barat<br>             <b>💰 Income Category:</b> High<br>             <b>💵 Rata-rata Income:</b> Rp 36,764,581<br>             <b>⚡ Rata-rata Daya:</b> 159.72 kW<br>             <b>📊 Std Deviasi Daya:</b> 70.32 kW<br>             <b>📈 Jumlah Data:</b> 17 records<br>             <small><i>Ukuran marker = tingkat income<br>             Intensitas warna = tingkat konsumsi</i></small>         </div>         </div>`)[0];
+                popup_65f4d64fc90d2e96ca0754a89a14b545.setContent(html_ffb45926711e042e08b553b2fec8d7d5);
+            
+        
+
+        circle_marker_c02a1029192b2fcbf64831bc25c5bf39.bindPopup(popup_65f4d64fc90d2e96ca0754a89a14b545)
+        ;
+
+        
+    
+    
+            circle_marker_c02a1029192b2fcbf64831bc25c5bf39.bindTooltip(
+                `<div>
+                     Nighttime Users - Jawa Barat (High Income)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_636da3552f8991bb9a036dd5ab393500 = L.circleMarker(
+                [-6.248799, 108.214116],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.4432936722746999, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_f0cfd2bcd9187ad9e8d9e8428aa47a64);
+        
+    
+        var popup_32cf390de8d4709dd78522402017f5e5 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_641b50c84dbba002847a69c0bbafb4e4 = $(`<div id="html_641b50c84dbba002847a69c0bbafb4e4" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px; font-family: Arial;">             <h4 style="margin: 0; color: purple;">Nighttime Users</h4>             <hr style="margin: 5px 0;">             <b>📍 Region:</b> Jawa Barat<br>             <b>💰 Income Category:</b> Low<br>             <b>💵 Rata-rata Income:</b> Rp 4,838,827<br>             <b>⚡ Rata-rata Daya:</b> 108.53 kW<br>             <b>📊 Std Deviasi Daya:</b> 50.61 kW<br>             <b>📈 Jumlah Data:</b> 23 records<br>             <small><i>Ukuran marker = tingkat income<br>             Intensitas warna = tingkat konsumsi</i></small>         </div>         </div>`)[0];
+                popup_32cf390de8d4709dd78522402017f5e5.setContent(html_641b50c84dbba002847a69c0bbafb4e4);
+            
+        
+
+        circle_marker_636da3552f8991bb9a036dd5ab393500.bindPopup(popup_32cf390de8d4709dd78522402017f5e5)
+        ;
+
+        
+    
+    
+            circle_marker_636da3552f8991bb9a036dd5ab393500.bindTooltip(
+                `<div>
+                     Nighttime Users - Jawa Barat (Low Income)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_bb2aceeca73458ebbc99ee4c44fedb0b = L.circleMarker(
+                [-6.882568, 106.540701],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.4443154180667164, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12, "stroke": true, "weight": 1}
+            ).addTo(map_f0cfd2bcd9187ad9e8d9e8428aa47a64);
+        
+    
+        var popup_184dfb60317c5c77cdd71ba79f333e54 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_911d8b4ed7bb3d8f40d4fb558b0ca940 = $(`<div id="html_911d8b4ed7bb3d8f40d4fb558b0ca940" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px; font-family: Arial;">             <h4 style="margin: 0; color: purple;">Nighttime Users</h4>             <hr style="margin: 5px 0;">             <b>📍 Region:</b> Jawa Barat<br>             <b>💰 Income Category:</b> Medium<br>             <b>💵 Rata-rata Income:</b> Rp 13,788,200<br>             <b>⚡ Rata-rata Daya:</b> 109.02 kW<br>             <b>📊 Std Deviasi Daya:</b> 41.96 kW<br>             <b>📈 Jumlah Data:</b> 26 records<br>             <small><i>Ukuran marker = tingkat income<br>             Intensitas warna = tingkat konsumsi</i></small>         </div>         </div>`)[0];
+                popup_184dfb60317c5c77cdd71ba79f333e54.setContent(html_911d8b4ed7bb3d8f40d4fb558b0ca940);
+            
+        
+
+        circle_marker_bb2aceeca73458ebbc99ee4c44fedb0b.bindPopup(popup_184dfb60317c5c77cdd71ba79f333e54)
+        ;
+
+        
+    
+    
+            circle_marker_bb2aceeca73458ebbc99ee4c44fedb0b.bindTooltip(
+                `<div>
+                     Nighttime Users - Jawa Barat (Medium Income)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_cd6677ea04f5d2026dccd7a82c00d86e = L.circleMarker(
+                [-7.150596, 109.071288],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.5826394874275814, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 16, "stroke": true, "weight": 1}
+            ).addTo(map_f0cfd2bcd9187ad9e8d9e8428aa47a64);
+        
+    
+        var popup_9dad752209368d34824c734b1bbceaca = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_884c512f718f66b6a16dc73d2937625d = $(`<div id="html_884c512f718f66b6a16dc73d2937625d" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px; font-family: Arial;">             <h4 style="margin: 0; color: purple;">Nighttime Users</h4>             <hr style="margin: 5px 0;">             <b>📍 Region:</b> Jawa Tengah<br>             <b>💰 Income Category:</b> High<br>             <b>💵 Rata-rata Income:</b> Rp 36,319,006<br>             <b>⚡ Rata-rata Daya:</b> 175.68 kW<br>             <b>📊 Std Deviasi Daya:</b> 57.67 kW<br>             <b>📈 Jumlah Data:</b> 12 records<br>             <small><i>Ukuran marker = tingkat income<br>             Intensitas warna = tingkat konsumsi</i></small>         </div>         </div>`)[0];
+                popup_9dad752209368d34824c734b1bbceaca.setContent(html_884c512f718f66b6a16dc73d2937625d);
+            
+        
+
+        circle_marker_cd6677ea04f5d2026dccd7a82c00d86e.bindPopup(popup_9dad752209368d34824c734b1bbceaca)
+        ;
+
+        
+    
+    
+            circle_marker_cd6677ea04f5d2026dccd7a82c00d86e.bindTooltip(
+                `<div>
+                     Nighttime Users - Jawa Tengah (High Income)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_57581f5fa5f62b7088666602d1a1dd34 = L.circleMarker(
+                [-6.894111, 108.91849],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.43946690560546814, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_f0cfd2bcd9187ad9e8d9e8428aa47a64);
+        
+    
+        var popup_f3bac83423cdf52688b65ca5753a1913 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_97225bc8f6700eed9655eb47b9d3d784 = $(`<div id="html_97225bc8f6700eed9655eb47b9d3d784" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px; font-family: Arial;">             <h4 style="margin: 0; color: purple;">Nighttime Users</h4>             <hr style="margin: 5px 0;">             <b>📍 Region:</b> Jawa Tengah<br>             <b>💰 Income Category:</b> Low<br>             <b>💵 Rata-rata Income:</b> Rp 5,422,649<br>             <b>⚡ Rata-rata Daya:</b> 106.68 kW<br>             <b>📊 Std Deviasi Daya:</b> 45.92 kW<br>             <b>📈 Jumlah Data:</b> 31 records<br>             <small><i>Ukuran marker = tingkat income<br>             Intensitas warna = tingkat konsumsi</i></small>         </div>         </div>`)[0];
+                popup_f3bac83423cdf52688b65ca5753a1913.setContent(html_97225bc8f6700eed9655eb47b9d3d784);
+            
+        
+
+        circle_marker_57581f5fa5f62b7088666602d1a1dd34.bindPopup(popup_f3bac83423cdf52688b65ca5753a1913)
+        ;
+
+        
+    
+    
+            circle_marker_57581f5fa5f62b7088666602d1a1dd34.bindTooltip(
+                `<div>
+                     Nighttime Users - Jawa Tengah (Low Income)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_52fdf31de37463902ed1a5a9e5628f5e = L.circleMarker(
+                [-6.93644, 109.981678],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.44791438602533273, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12, "stroke": true, "weight": 1}
+            ).addTo(map_f0cfd2bcd9187ad9e8d9e8428aa47a64);
+        
+    
+        var popup_5d7434ab5d753f9d9fd8bc30c95272d3 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ed08fcf9fba4f5eb8fec960abb645830 = $(`<div id="html_ed08fcf9fba4f5eb8fec960abb645830" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px; font-family: Arial;">             <h4 style="margin: 0; color: purple;">Nighttime Users</h4>             <hr style="margin: 5px 0;">             <b>📍 Region:</b> Jawa Tengah<br>             <b>💰 Income Category:</b> Medium<br>             <b>💵 Rata-rata Income:</b> Rp 13,693,607<br>             <b>⚡ Rata-rata Daya:</b> 110.76 kW<br>             <b>📊 Std Deviasi Daya:</b> 39.07 kW<br>             <b>📈 Jumlah Data:</b> 31 records<br>             <small><i>Ukuran marker = tingkat income<br>             Intensitas warna = tingkat konsumsi</i></small>         </div>         </div>`)[0];
+                popup_5d7434ab5d753f9d9fd8bc30c95272d3.setContent(html_ed08fcf9fba4f5eb8fec960abb645830);
+            
+        
+
+        circle_marker_52fdf31de37463902ed1a5a9e5628f5e.bindPopup(popup_5d7434ab5d753f9d9fd8bc30c95272d3)
+        ;
+
+        
+    
+    
+            circle_marker_52fdf31de37463902ed1a5a9e5628f5e.bindTooltip(
+                `<div>
+                     Nighttime Users - Jawa Tengah (Medium Income)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c40fb37db0e73375890ef86c8c0b098c = L.circleMarker(
+                [-8.147999, 112.133006],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.5725882050166712, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 16, "stroke": true, "weight": 1}
+            ).addTo(map_f0cfd2bcd9187ad9e8d9e8428aa47a64);
+        
+    
+        var popup_b0f6af4c6b27412bc5ead591e3729627 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_1c2d7600cd9e9d5e7eccfe6bebc5311a = $(`<div id="html_1c2d7600cd9e9d5e7eccfe6bebc5311a" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px; font-family: Arial;">             <h4 style="margin: 0; color: purple;">Nighttime Users</h4>             <hr style="margin: 5px 0;">             <b>📍 Region:</b> Jawa Timur<br>             <b>💰 Income Category:</b> High<br>             <b>💵 Rata-rata Income:</b> Rp 37,632,295<br>             <b>⚡ Rata-rata Daya:</b> 170.84 kW<br>             <b>📊 Std Deviasi Daya:</b> 49.87 kW<br>             <b>📈 Jumlah Data:</b> 16 records<br>             <small><i>Ukuran marker = tingkat income<br>             Intensitas warna = tingkat konsumsi</i></small>         </div>         </div>`)[0];
+                popup_b0f6af4c6b27412bc5ead591e3729627.setContent(html_1c2d7600cd9e9d5e7eccfe6bebc5311a);
+            
+        
+
+        circle_marker_c40fb37db0e73375890ef86c8c0b098c.bindPopup(popup_b0f6af4c6b27412bc5ead591e3729627)
+        ;
+
+        
+    
+    
+            circle_marker_c40fb37db0e73375890ef86c8c0b098c.bindTooltip(
+                `<div>
+                     Nighttime Users - Jawa Timur (High Income)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d3c39c6a71281ac8e1b056299def7a6f = L.circleMarker(
+                [-8.019488, 114.187286],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.4029034281008745, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_f0cfd2bcd9187ad9e8d9e8428aa47a64);
+        
+    
+        var popup_0c8e29f81349ddfa0c1defc063420882 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_3174d96c7bed321f8a15f44a3b3f1d4d = $(`<div id="html_3174d96c7bed321f8a15f44a3b3f1d4d" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px; font-family: Arial;">             <h4 style="margin: 0; color: purple;">Nighttime Users</h4>             <hr style="margin: 5px 0;">             <b>📍 Region:</b> Jawa Timur<br>             <b>💰 Income Category:</b> Low<br>             <b>💵 Rata-rata Income:</b> Rp 4,629,759<br>             <b>⚡ Rata-rata Daya:</b> 89.06 kW<br>             <b>📊 Std Deviasi Daya:</b> 31.23 kW<br>             <b>📈 Jumlah Data:</b> 20 records<br>             <small><i>Ukuran marker = tingkat income<br>             Intensitas warna = tingkat konsumsi</i></small>         </div>         </div>`)[0];
+                popup_0c8e29f81349ddfa0c1defc063420882.setContent(html_3174d96c7bed321f8a15f44a3b3f1d4d);
+            
+        
+
+        circle_marker_d3c39c6a71281ac8e1b056299def7a6f.bindPopup(popup_0c8e29f81349ddfa0c1defc063420882)
+        ;
+
+        
+    
+    
+            circle_marker_d3c39c6a71281ac8e1b056299def7a6f.bindTooltip(
+                `<div>
+                     Nighttime Users - Jawa Timur (Low Income)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_9c11d433f500cd66a9c780048d15349f = L.circleMarker(
+                [-7.268092, 113.713122],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.4736284272651085, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12, "stroke": true, "weight": 1}
+            ).addTo(map_f0cfd2bcd9187ad9e8d9e8428aa47a64);
+        
+    
+        var popup_030307e11da627516e68ec61a7a9c5fc = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_563c1ca0d56333c41b87279802d350ee = $(`<div id="html_563c1ca0d56333c41b87279802d350ee" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px; font-family: Arial;">             <h4 style="margin: 0; color: purple;">Nighttime Users</h4>             <hr style="margin: 5px 0;">             <b>📍 Region:</b> Jawa Timur<br>             <b>💰 Income Category:</b> Medium<br>             <b>💵 Rata-rata Income:</b> Rp 13,544,118<br>             <b>⚡ Rata-rata Daya:</b> 123.15 kW<br>             <b>📊 Std Deviasi Daya:</b> 40.49 kW<br>             <b>📈 Jumlah Data:</b> 35 records<br>             <small><i>Ukuran marker = tingkat income<br>             Intensitas warna = tingkat konsumsi</i></small>         </div>         </div>`)[0];
+                popup_030307e11da627516e68ec61a7a9c5fc.setContent(html_563c1ca0d56333c41b87279802d350ee);
+            
+        
+
+        circle_marker_9c11d433f500cd66a9c780048d15349f.bindPopup(popup_030307e11da627516e68ec61a7a9c5fc)
+        ;
+
+        
+    
+    
+            circle_marker_9c11d433f500cd66a9c780048d15349f.bindTooltip(
+                `<div>
+                     Nighttime Users - Jawa Timur (Medium Income)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e5e2e0d1850871575747e8a06af241ee = L.circleMarker(
+                [2.182438, 115.299336],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.5813419520343314, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 16, "stroke": true, "weight": 1}
+            ).addTo(map_f0cfd2bcd9187ad9e8d9e8428aa47a64);
+        
+    
+        var popup_e8aacb5d34f01d0046497658cd6a58b6 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_5072598a17d2180ebe032d25ed65dd70 = $(`<div id="html_5072598a17d2180ebe032d25ed65dd70" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px; font-family: Arial;">             <h4 style="margin: 0; color: purple;">Nighttime Users</h4>             <hr style="margin: 5px 0;">             <b>📍 Region:</b> Kalimantan Timur<br>             <b>💰 Income Category:</b> High<br>             <b>💵 Rata-rata Income:</b> Rp 29,113,608<br>             <b>⚡ Rata-rata Daya:</b> 175.06 kW<br>             <b>📊 Std Deviasi Daya:</b> 53.56 kW<br>             <b>📈 Jumlah Data:</b> 10 records<br>             <small><i>Ukuran marker = tingkat income<br>             Intensitas warna = tingkat konsumsi</i></small>         </div>         </div>`)[0];
+                popup_e8aacb5d34f01d0046497658cd6a58b6.setContent(html_5072598a17d2180ebe032d25ed65dd70);
+            
+        
+
+        circle_marker_e5e2e0d1850871575747e8a06af241ee.bindPopup(popup_e8aacb5d34f01d0046497658cd6a58b6)
+        ;
+
+        
+    
+    
+            circle_marker_e5e2e0d1850871575747e8a06af241ee.bindTooltip(
+                `<div>
+                     Nighttime Users - Kalimantan Timur (High Income)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_9578aca8e7f4dacfd9b4cfe53972afc5 = L.circleMarker(
+                [-1.739058, 116.194845],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.41945394314408646, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_f0cfd2bcd9187ad9e8d9e8428aa47a64);
+        
+    
+        var popup_dfe60ef55635922094b0826f8cae7e7f = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_feb6f98985c21308cda3e95bae800005 = $(`<div id="html_feb6f98985c21308cda3e95bae800005" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px; font-family: Arial;">             <h4 style="margin: 0; color: purple;">Nighttime Users</h4>             <hr style="margin: 5px 0;">             <b>📍 Region:</b> Kalimantan Timur<br>             <b>💰 Income Category:</b> Low<br>             <b>💵 Rata-rata Income:</b> Rp 4,651,441<br>             <b>⚡ Rata-rata Daya:</b> 97.04 kW<br>             <b>📊 Std Deviasi Daya:</b> 36.52 kW<br>             <b>📈 Jumlah Data:</b> 27 records<br>             <small><i>Ukuran marker = tingkat income<br>             Intensitas warna = tingkat konsumsi</i></small>         </div>         </div>`)[0];
+                popup_dfe60ef55635922094b0826f8cae7e7f.setContent(html_feb6f98985c21308cda3e95bae800005);
+            
+        
+
+        circle_marker_9578aca8e7f4dacfd9b4cfe53972afc5.bindPopup(popup_dfe60ef55635922094b0826f8cae7e7f)
+        ;
+
+        
+    
+    
+            circle_marker_9578aca8e7f4dacfd9b4cfe53972afc5.bindTooltip(
+                `<div>
+                     Nighttime Users - Kalimantan Timur (Low Income)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_02c80a4830ed8f062ed4da55312fdbb1 = L.circleMarker(
+                [0.271458, 118.664693],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.45128675305093024, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12, "stroke": true, "weight": 1}
+            ).addTo(map_f0cfd2bcd9187ad9e8d9e8428aa47a64);
+        
+    
+        var popup_c28b8af8235dbe69090a41d51d0d3cce = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_505ab38c565d8bbffdab293cf4610ac4 = $(`<div id="html_505ab38c565d8bbffdab293cf4610ac4" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px; font-family: Arial;">             <h4 style="margin: 0; color: purple;">Nighttime Users</h4>             <hr style="margin: 5px 0;">             <b>📍 Region:</b> Kalimantan Timur<br>             <b>💰 Income Category:</b> Medium<br>             <b>💵 Rata-rata Income:</b> Rp 14,625,753<br>             <b>⚡ Rata-rata Daya:</b> 112.38 kW<br>             <b>📊 Std Deviasi Daya:</b> 41.13 kW<br>             <b>📈 Jumlah Data:</b> 27 records<br>             <small><i>Ukuran marker = tingkat income<br>             Intensitas warna = tingkat konsumsi</i></small>         </div>         </div>`)[0];
+                popup_c28b8af8235dbe69090a41d51d0d3cce.setContent(html_505ab38c565d8bbffdab293cf4610ac4);
+            
+        
+
+        circle_marker_02c80a4830ed8f062ed4da55312fdbb1.bindPopup(popup_c28b8af8235dbe69090a41d51d0d3cce)
+        ;
+
+        
+    
+    
+            circle_marker_02c80a4830ed8f062ed4da55312fdbb1.bindTooltip(
+                `<div>
+                     Nighttime Users - Kalimantan Timur (Medium Income)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_22452effcd32f7bb92349c4abfa40c96 = L.circleMarker(
+                [-5.983561, 132.59636],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.5626582931237015, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 16, "stroke": true, "weight": 1}
+            ).addTo(map_f0cfd2bcd9187ad9e8d9e8428aa47a64);
+        
+    
+        var popup_15961b5d2573c486dd030b44487530eb = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_b7be13fd882919c229fe3f475fd7c0e3 = $(`<div id="html_b7be13fd882919c229fe3f475fd7c0e3" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px; font-family: Arial;">             <h4 style="margin: 0; color: purple;">Nighttime Users</h4>             <hr style="margin: 5px 0;">             <b>📍 Region:</b> Papua<br>             <b>💰 Income Category:</b> High<br>             <b>💵 Rata-rata Income:</b> Rp 36,273,679<br>             <b>⚡ Rata-rata Daya:</b> 166.05 kW<br>             <b>📊 Std Deviasi Daya:</b> 58.47 kW<br>             <b>📈 Jumlah Data:</b> 20 records<br>             <small><i>Ukuran marker = tingkat income<br>             Intensitas warna = tingkat konsumsi</i></small>         </div>         </div>`)[0];
+                popup_15961b5d2573c486dd030b44487530eb.setContent(html_b7be13fd882919c229fe3f475fd7c0e3);
+            
+        
+
+        circle_marker_22452effcd32f7bb92349c4abfa40c96.bindPopup(popup_15961b5d2573c486dd030b44487530eb)
+        ;
+
+        
+    
+    
+            circle_marker_22452effcd32f7bb92349c4abfa40c96.bindTooltip(
+                `<div>
+                     Nighttime Users - Papua (High Income)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_1517e602bd0f1bb058ca8741851dcae1 = L.circleMarker(
+                [-2.848046, 137.866336],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.4334231247043598, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_f0cfd2bcd9187ad9e8d9e8428aa47a64);
+        
+    
+        var popup_452d9e16c6853e09f88e137c4ce41d61 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_f4b169af35bec873d4e8ed125dcbbc85 = $(`<div id="html_f4b169af35bec873d4e8ed125dcbbc85" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px; font-family: Arial;">             <h4 style="margin: 0; color: purple;">Nighttime Users</h4>             <hr style="margin: 5px 0;">             <b>📍 Region:</b> Papua<br>             <b>💰 Income Category:</b> Low<br>             <b>💵 Rata-rata Income:</b> Rp 5,432,248<br>             <b>⚡ Rata-rata Daya:</b> 103.77 kW<br>             <b>📊 Std Deviasi Daya:</b> 53.90 kW<br>             <b>📈 Jumlah Data:</b> 25 records<br>             <small><i>Ukuran marker = tingkat income<br>             Intensitas warna = tingkat konsumsi</i></small>         </div>         </div>`)[0];
+                popup_452d9e16c6853e09f88e137c4ce41d61.setContent(html_f4b169af35bec873d4e8ed125dcbbc85);
+            
+        
+
+        circle_marker_1517e602bd0f1bb058ca8741851dcae1.bindPopup(popup_452d9e16c6853e09f88e137c4ce41d61)
+        ;
+
+        
+    
+    
+            circle_marker_1517e602bd0f1bb058ca8741851dcae1.bindTooltip(
+                `<div>
+                     Nighttime Users - Papua (Low Income)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_2ef1236a80eafef2b00092dc7a843891 = L.circleMarker(
+                [-0.248211, 139.040452],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.4732625000816554, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12, "stroke": true, "weight": 1}
+            ).addTo(map_f0cfd2bcd9187ad9e8d9e8428aa47a64);
+        
+    
+        var popup_1c7dd5ca80786ac08784c16bb0652916 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_674cc9d0e55c709d1c2dffa7d810b65f = $(`<div id="html_674cc9d0e55c709d1c2dffa7d810b65f" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px; font-family: Arial;">             <h4 style="margin: 0; color: purple;">Nighttime Users</h4>             <hr style="margin: 5px 0;">             <b>📍 Region:</b> Papua<br>             <b>💰 Income Category:</b> Medium<br>             <b>💵 Rata-rata Income:</b> Rp 12,578,623<br>             <b>⚡ Rata-rata Daya:</b> 122.97 kW<br>             <b>📊 Std Deviasi Daya:</b> 47.01 kW<br>             <b>📈 Jumlah Data:</b> 20 records<br>             <small><i>Ukuran marker = tingkat income<br>             Intensitas warna = tingkat konsumsi</i></small>         </div>         </div>`)[0];
+                popup_1c7dd5ca80786ac08784c16bb0652916.setContent(html_674cc9d0e55c709d1c2dffa7d810b65f);
+            
+        
+
+        circle_marker_2ef1236a80eafef2b00092dc7a843891.bindPopup(popup_1c7dd5ca80786ac08784c16bb0652916)
+        ;
+
+        
+    
+    
+            circle_marker_2ef1236a80eafef2b00092dc7a843891.bindTooltip(
+                `<div>
+                     Nighttime Users - Papua (Medium Income)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_dd7df2c9222e173657ca4f8519d0eeb5 = L.circleMarker(
+                [-1.688419, 119.657801],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.5782470816395463, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 16, "stroke": true, "weight": 1}
+            ).addTo(map_f0cfd2bcd9187ad9e8d9e8428aa47a64);
+        
+    
+        var popup_8fd2ea06c178818af226f4de67870840 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_31c15031da97640089c2f1ec04abd2df = $(`<div id="html_31c15031da97640089c2f1ec04abd2df" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px; font-family: Arial;">             <h4 style="margin: 0; color: purple;">Nighttime Users</h4>             <hr style="margin: 5px 0;">             <b>📍 Region:</b> Sulawesi Selatan<br>             <b>💰 Income Category:</b> High<br>             <b>💵 Rata-rata Income:</b> Rp 41,455,844<br>             <b>⚡ Rata-rata Daya:</b> 173.57 kW<br>             <b>📊 Std Deviasi Daya:</b> 52.51 kW<br>             <b>📈 Jumlah Data:</b> 10 records<br>             <small><i>Ukuran marker = tingkat income<br>             Intensitas warna = tingkat konsumsi</i></small>         </div>         </div>`)[0];
+                popup_8fd2ea06c178818af226f4de67870840.setContent(html_31c15031da97640089c2f1ec04abd2df);
+            
+        
+
+        circle_marker_dd7df2c9222e173657ca4f8519d0eeb5.bindPopup(popup_8fd2ea06c178818af226f4de67870840)
+        ;
+
+        
+    
+    
+            circle_marker_dd7df2c9222e173657ca4f8519d0eeb5.bindTooltip(
+                `<div>
+                     Nighttime Users - Sulawesi Selatan (High Income)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_591ddd66e0d20ebdbbe45989e7a9b8fa = L.circleMarker(
+                [-7.948362, 118.771406],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.44869383220047016, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_f0cfd2bcd9187ad9e8d9e8428aa47a64);
+        
+    
+        var popup_39efbe27d7891bf0d1236b5246a2d954 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_4ff5f94a816a377d83eab503e7464fda = $(`<div id="html_4ff5f94a816a377d83eab503e7464fda" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px; font-family: Arial;">             <h4 style="margin: 0; color: purple;">Nighttime Users</h4>             <hr style="margin: 5px 0;">             <b>📍 Region:</b> Sulawesi Selatan<br>             <b>💰 Income Category:</b> Low<br>             <b>💵 Rata-rata Income:</b> Rp 4,912,253<br>             <b>⚡ Rata-rata Daya:</b> 111.13 kW<br>             <b>📊 Std Deviasi Daya:</b> 50.71 kW<br>             <b>📈 Jumlah Data:</b> 24 records<br>             <small><i>Ukuran marker = tingkat income<br>             Intensitas warna = tingkat konsumsi</i></small>         </div>         </div>`)[0];
+                popup_39efbe27d7891bf0d1236b5246a2d954.setContent(html_4ff5f94a816a377d83eab503e7464fda);
+            
+        
+
+        circle_marker_591ddd66e0d20ebdbbe45989e7a9b8fa.bindPopup(popup_39efbe27d7891bf0d1236b5246a2d954)
+        ;
+
+        
+    
+    
+            circle_marker_591ddd66e0d20ebdbbe45989e7a9b8fa.bindTooltip(
+                `<div>
+                     Nighttime Users - Sulawesi Selatan (Low Income)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_94821980cf98cb7de0207327223dc9d1 = L.circleMarker(
+                [-7.804379, 119.738643],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.4578076248619589, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12, "stroke": true, "weight": 1}
+            ).addTo(map_f0cfd2bcd9187ad9e8d9e8428aa47a64);
+        
+    
+        var popup_15e1afe9f9c4da646c3303f6b19a78e1 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_3333c7d9de4ce58eb37f12f8b2799e7d = $(`<div id="html_3333c7d9de4ce58eb37f12f8b2799e7d" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px; font-family: Arial;">             <h4 style="margin: 0; color: purple;">Nighttime Users</h4>             <hr style="margin: 5px 0;">             <b>📍 Region:</b> Sulawesi Selatan<br>             <b>💰 Income Category:</b> Medium<br>             <b>💵 Rata-rata Income:</b> Rp 15,130,262<br>             <b>⚡ Rata-rata Daya:</b> 115.52 kW<br>             <b>📊 Std Deviasi Daya:</b> 47.56 kW<br>             <b>📈 Jumlah Data:</b> 22 records<br>             <small><i>Ukuran marker = tingkat income<br>             Intensitas warna = tingkat konsumsi</i></small>         </div>         </div>`)[0];
+                popup_15e1afe9f9c4da646c3303f6b19a78e1.setContent(html_3333c7d9de4ce58eb37f12f8b2799e7d);
+            
+        
+
+        circle_marker_94821980cf98cb7de0207327223dc9d1.bindPopup(popup_15e1afe9f9c4da646c3303f6b19a78e1)
+        ;
+
+        
+    
+    
+            circle_marker_94821980cf98cb7de0207327223dc9d1.bindTooltip(
+                `<div>
+                     Nighttime Users - Sulawesi Selatan (Medium Income)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c500df5b0e096fcabb90bf5f060d60c1 = L.circleMarker(
+                [-2.443495, 103.277286],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.5500801594306713, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 16, "stroke": true, "weight": 1}
+            ).addTo(map_f0cfd2bcd9187ad9e8d9e8428aa47a64);
+        
+    
+        var popup_3e24041a78a68e5b29658d9df4802ebb = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_48903c5ceffed83425d60cee78dcbf0b = $(`<div id="html_48903c5ceffed83425d60cee78dcbf0b" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px; font-family: Arial;">             <h4 style="margin: 0; color: purple;">Nighttime Users</h4>             <hr style="margin: 5px 0;">             <b>📍 Region:</b> Sumatera Selatan<br>             <b>💰 Income Category:</b> High<br>             <b>💵 Rata-rata Income:</b> Rp 32,390,919<br>             <b>⚡ Rata-rata Daya:</b> 159.99 kW<br>             <b>📊 Std Deviasi Daya:</b> 60.17 kW<br>             <b>📈 Jumlah Data:</b> 14 records<br>             <small><i>Ukuran marker = tingkat income<br>             Intensitas warna = tingkat konsumsi</i></small>         </div>         </div>`)[0];
+                popup_3e24041a78a68e5b29658d9df4802ebb.setContent(html_48903c5ceffed83425d60cee78dcbf0b);
+            
+        
+
+        circle_marker_c500df5b0e096fcabb90bf5f060d60c1.bindPopup(popup_3e24041a78a68e5b29658d9df4802ebb)
+        ;
+
+        
+    
+    
+            circle_marker_c500df5b0e096fcabb90bf5f060d60c1.bindTooltip(
+                `<div>
+                     Nighttime Users - Sumatera Selatan (High Income)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ab3b2af1c3b6b7d4590482d5ad6f9d79 = L.circleMarker(
+                [-4.998413, 103.619311],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.4, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_f0cfd2bcd9187ad9e8d9e8428aa47a64);
+        
+    
+        var popup_715321fe36891ae8b2634586781e5470 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_265b453c148579053a4eda491e153ad9 = $(`<div id="html_265b453c148579053a4eda491e153ad9" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px; font-family: Arial;">             <h4 style="margin: 0; color: purple;">Nighttime Users</h4>             <hr style="margin: 5px 0;">             <b>📍 Region:</b> Sumatera Selatan<br>             <b>💰 Income Category:</b> Low<br>             <b>💵 Rata-rata Income:</b> Rp 4,414,727<br>             <b>⚡ Rata-rata Daya:</b> 87.66 kW<br>             <b>📊 Std Deviasi Daya:</b> 39.24 kW<br>             <b>📈 Jumlah Data:</b> 27 records<br>             <small><i>Ukuran marker = tingkat income<br>             Intensitas warna = tingkat konsumsi</i></small>         </div>         </div>`)[0];
+                popup_715321fe36891ae8b2634586781e5470.setContent(html_265b453c148579053a4eda491e153ad9);
+            
+        
+
+        circle_marker_ab3b2af1c3b6b7d4590482d5ad6f9d79.bindPopup(popup_715321fe36891ae8b2634586781e5470)
+        ;
+
+        
+    
+    
+            circle_marker_ab3b2af1c3b6b7d4590482d5ad6f9d79.bindTooltip(
+                `<div>
+                     Nighttime Users - Sumatera Selatan (Low Income)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ea9e45887c85c4a22a0fa33696193152 = L.circleMarker(
+                [-3.784859, 104.951234],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.4680366733581013, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12, "stroke": true, "weight": 1}
+            ).addTo(map_f0cfd2bcd9187ad9e8d9e8428aa47a64);
+        
+    
+        var popup_7f143bc1d70e7361306ff6cc85fca6f0 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_b71ab1ab9f3909e09cb6238cd76ccad0 = $(`<div id="html_b71ab1ab9f3909e09cb6238cd76ccad0" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px; font-family: Arial;">             <h4 style="margin: 0; color: purple;">Nighttime Users</h4>             <hr style="margin: 5px 0;">             <b>📍 Region:</b> Sumatera Selatan<br>             <b>💰 Income Category:</b> Medium<br>             <b>💵 Rata-rata Income:</b> Rp 14,388,154<br>             <b>⚡ Rata-rata Daya:</b> 120.45 kW<br>             <b>📊 Std Deviasi Daya:</b> 47.31 kW<br>             <b>📈 Jumlah Data:</b> 28 records<br>             <small><i>Ukuran marker = tingkat income<br>             Intensitas warna = tingkat konsumsi</i></small>         </div>         </div>`)[0];
+                popup_7f143bc1d70e7361306ff6cc85fca6f0.setContent(html_b71ab1ab9f3909e09cb6238cd76ccad0);
+            
+        
+
+        circle_marker_ea9e45887c85c4a22a0fa33696193152.bindPopup(popup_7f143bc1d70e7361306ff6cc85fca6f0)
+        ;
+
+        
+    
+    
+            circle_marker_ea9e45887c85c4a22a0fa33696193152.bindTooltip(
+                `<div>
+                     Nighttime Users - Sumatera Selatan (Medium Income)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_02f45e5e2713c76fc4294dc97a277786 = L.circleMarker(
+                [1.721085, 98.383058],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.5678554551312769, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 16, "stroke": true, "weight": 1}
+            ).addTo(map_f0cfd2bcd9187ad9e8d9e8428aa47a64);
+        
+    
+        var popup_4eeaefefb6e77db286b35a366c52d2f6 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_1a3e65019e34858a213fca437e71e1cc = $(`<div id="html_1a3e65019e34858a213fca437e71e1cc" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px; font-family: Arial;">             <h4 style="margin: 0; color: purple;">Nighttime Users</h4>             <hr style="margin: 5px 0;">             <b>📍 Region:</b> Sumatera Utara<br>             <b>💰 Income Category:</b> High<br>             <b>💵 Rata-rata Income:</b> Rp 35,383,705<br>             <b>⚡ Rata-rata Daya:</b> 168.56 kW<br>             <b>📊 Std Deviasi Daya:</b> 54.10 kW<br>             <b>📈 Jumlah Data:</b> 10 records<br>             <small><i>Ukuran marker = tingkat income<br>             Intensitas warna = tingkat konsumsi</i></small>         </div>         </div>`)[0];
+                popup_4eeaefefb6e77db286b35a366c52d2f6.setContent(html_1a3e65019e34858a213fca437e71e1cc);
+            
+        
+
+        circle_marker_02f45e5e2713c76fc4294dc97a277786.bindPopup(popup_4eeaefefb6e77db286b35a366c52d2f6)
+        ;
+
+        
+    
+    
+            circle_marker_02f45e5e2713c76fc4294dc97a277786.bindTooltip(
+                `<div>
+                     Nighttime Users - Sumatera Utara (High Income)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ee94391175138164756ffe761dcae625 = L.circleMarker(
+                [2.297908, 98.636761],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.41684199454998216, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_f0cfd2bcd9187ad9e8d9e8428aa47a64);
+        
+    
+        var popup_306e5dd8ab168cdb7e8235fee4c67d93 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_12b089d2ea1e05966998864d2157da92 = $(`<div id="html_12b089d2ea1e05966998864d2157da92" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px; font-family: Arial;">             <h4 style="margin: 0; color: purple;">Nighttime Users</h4>             <hr style="margin: 5px 0;">             <b>📍 Region:</b> Sumatera Utara<br>             <b>💰 Income Category:</b> Low<br>             <b>💵 Rata-rata Income:</b> Rp 4,788,822<br>             <b>⚡ Rata-rata Daya:</b> 95.78 kW<br>             <b>📊 Std Deviasi Daya:</b> 33.77 kW<br>             <b>📈 Jumlah Data:</b> 35 records<br>             <small><i>Ukuran marker = tingkat income<br>             Intensitas warna = tingkat konsumsi</i></small>         </div>         </div>`)[0];
+                popup_306e5dd8ab168cdb7e8235fee4c67d93.setContent(html_12b089d2ea1e05966998864d2157da92);
+            
+        
+
+        circle_marker_ee94391175138164756ffe761dcae625.bindPopup(popup_306e5dd8ab168cdb7e8235fee4c67d93)
+        ;
+
+        
+    
+    
+            circle_marker_ee94391175138164756ffe761dcae625.bindTooltip(
+                `<div>
+                     Nighttime Users - Sumatera Utara (Low Income)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ff6663ff0b1b6b5b3b8ef1fc4bc58cde = L.circleMarker(
+                [3.682383, 98.52232],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.446459137958264, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12, "stroke": true, "weight": 1}
+            ).addTo(map_f0cfd2bcd9187ad9e8d9e8428aa47a64);
+        
+    
+        var popup_2bf1d6ec0dd6b88a69e2eeffe6a6deb2 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_194c43cd2367202951209f627d96663e = $(`<div id="html_194c43cd2367202951209f627d96663e" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px; font-family: Arial;">             <h4 style="margin: 0; color: purple;">Nighttime Users</h4>             <hr style="margin: 5px 0;">             <b>📍 Region:</b> Sumatera Utara<br>             <b>💰 Income Category:</b> Medium<br>             <b>💵 Rata-rata Income:</b> Rp 14,279,554<br>             <b>⚡ Rata-rata Daya:</b> 110.05 kW<br>             <b>📊 Std Deviasi Daya:</b> 44.47 kW<br>             <b>📈 Jumlah Data:</b> 36 records<br>             <small><i>Ukuran marker = tingkat income<br>             Intensitas warna = tingkat konsumsi</i></small>         </div>         </div>`)[0];
+                popup_2bf1d6ec0dd6b88a69e2eeffe6a6deb2.setContent(html_194c43cd2367202951209f627d96663e);
+            
+        
+
+        circle_marker_ff6663ff0b1b6b5b3b8ef1fc4bc58cde.bindPopup(popup_2bf1d6ec0dd6b88a69e2eeffe6a6deb2)
+        ;
+
+        
+    
+    
+            circle_marker_ff6663ff0b1b6b5b3b8ef1fc4bc58cde.bindTooltip(
+                `<div>
+                     Nighttime Users - Sumatera Utara (Medium Income)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_1a0821e4ce69b3604c42d4598713adb4 = L.circleMarker(
+                [-6.808968, 111.102715],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.5945564157434494, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 16, "stroke": true, "weight": 1}
+            ).addTo(map_f0cfd2bcd9187ad9e8d9e8428aa47a64);
+        
+    
+        var popup_1ca2dc31fc9de3e687a4b7655ca1f21a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e01180815fcf850e0ab626576aa84816 = $(`<div id="html_e01180815fcf850e0ab626576aa84816" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px; font-family: Arial;">             <h4 style="margin: 0; color: green;">Daytime Users</h4>             <hr style="margin: 5px 0;">             <b>📍 Region:</b> Jawa Tengah<br>             <b>💰 Income Category:</b> High<br>             <b>💵 Rata-rata Income:</b> Rp 24,687,142<br>             <b>⚡ Rata-rata Daya:</b> 181.43 kW<br>             <b>📊 Std Deviasi Daya:</b> nan kW<br>             <b>📈 Jumlah Data:</b> 1 records<br>             <small><i>Ukuran marker = tingkat income<br>             Intensitas warna = tingkat konsumsi</i></small>         </div>         </div>`)[0];
+                popup_1ca2dc31fc9de3e687a4b7655ca1f21a.setContent(html_e01180815fcf850e0ab626576aa84816);
+            
+        
+
+        circle_marker_1a0821e4ce69b3604c42d4598713adb4.bindPopup(popup_1ca2dc31fc9de3e687a4b7655ca1f21a)
+        ;
+
+        
+    
+    
+            circle_marker_1a0821e4ce69b3604c42d4598713adb4.bindTooltip(
+                `<div>
+                     Daytime Users - Jawa Tengah (High Income)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_49d27ed993958f0d99216bbfe82eb81f = L.circleMarker(
+                [-6.998542, 140.155125],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.5668831076508903, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 16, "stroke": true, "weight": 1}
+            ).addTo(map_f0cfd2bcd9187ad9e8d9e8428aa47a64);
+        
+    
+        var popup_aee484d2243ca8fa6c76bf6e5e59da2d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d67d6b52a0f47c9780fb51ab24c500b4 = $(`<div id="html_d67d6b52a0f47c9780fb51ab24c500b4" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px; font-family: Arial;">             <h4 style="margin: 0; color: green;">Daytime Users</h4>             <hr style="margin: 5px 0;">             <b>📍 Region:</b> Papua<br>             <b>💰 Income Category:</b> High<br>             <b>💵 Rata-rata Income:</b> Rp 37,151,249<br>             <b>⚡ Rata-rata Daya:</b> 168.09 kW<br>             <b>📊 Std Deviasi Daya:</b> 19.94 kW<br>             <b>📈 Jumlah Data:</b> 2 records<br>             <small><i>Ukuran marker = tingkat income<br>             Intensitas warna = tingkat konsumsi</i></small>         </div>         </div>`)[0];
+                popup_aee484d2243ca8fa6c76bf6e5e59da2d.setContent(html_d67d6b52a0f47c9780fb51ab24c500b4);
+            
+        
+
+        circle_marker_49d27ed993958f0d99216bbfe82eb81f.bindPopup(popup_aee484d2243ca8fa6c76bf6e5e59da2d)
+        ;
+
+        
+    
+    
+            circle_marker_49d27ed993958f0d99216bbfe82eb81f.bindTooltip(
+                `<div>
+                     Daytime Users - Papua (High Income)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f7df9a1fa9a7e831179ed7670631637e = L.circleMarker(
+                [2.216654, 98.345588],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.6127905247573109, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 16, "stroke": true, "weight": 1}
+            ).addTo(map_f0cfd2bcd9187ad9e8d9e8428aa47a64);
+        
+    
+        var popup_0a77f370751c0b9c3e957f7643e4bfbc = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_96f08d063c0de6d79c58338751b19abd = $(`<div id="html_96f08d063c0de6d79c58338751b19abd" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px; font-family: Arial;">             <h4 style="margin: 0; color: green;">Daytime Users</h4>             <hr style="margin: 5px 0;">             <b>📍 Region:</b> Sumatera Utara<br>             <b>💰 Income Category:</b> High<br>             <b>💵 Rata-rata Income:</b> Rp 22,366,886<br>             <b>⚡ Rata-rata Daya:</b> 190.21 kW<br>             <b>📊 Std Deviasi Daya:</b> 4.25 kW<br>             <b>📈 Jumlah Data:</b> 2 records<br>             <small><i>Ukuran marker = tingkat income<br>             Intensitas warna = tingkat konsumsi</i></small>         </div>         </div>`)[0];
+                popup_0a77f370751c0b9c3e957f7643e4bfbc.setContent(html_96f08d063c0de6d79c58338751b19abd);
+            
+        
+
+        circle_marker_f7df9a1fa9a7e831179ed7670631637e.bindPopup(popup_0a77f370751c0b9c3e957f7643e4bfbc)
+        ;
+
+        
+    
+    
+            circle_marker_f7df9a1fa9a7e831179ed7670631637e.bindTooltip(
+                `<div>
+                     Daytime Users - Sumatera Utara (High Income)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_9cc03a571c8ab77222f4705f5d726d0a = L.circleMarker(
+                [-8.602561, 114.569208],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6313213595280978, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12, "stroke": true, "weight": 1}
+            ).addTo(map_f0cfd2bcd9187ad9e8d9e8428aa47a64);
+        
+    
+        var popup_051a87e3104245d2f5f11a4a1b0ab1da = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_05949cdee2360773c3b3764d12c204d9 = $(`<div id="html_05949cdee2360773c3b3764d12c204d9" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px; font-family: Arial;">             <h4 style="margin: 0; color: red;">Evening Peak Users</h4>             <hr style="margin: 5px 0;">             <b>📍 Region:</b> Bali<br>             <b>💰 Income Category:</b> Medium<br>             <b>💵 Rata-rata Income:</b> Rp 18,650,549<br>             <b>⚡ Rata-rata Daya:</b> 199.14 kW<br>             <b>📊 Std Deviasi Daya:</b> 6.98 kW<br>             <b>📈 Jumlah Data:</b> 2 records<br>             <small><i>Ukuran marker = tingkat income<br>             Intensitas warna = tingkat konsumsi</i></small>         </div>         </div>`)[0];
+                popup_051a87e3104245d2f5f11a4a1b0ab1da.setContent(html_05949cdee2360773c3b3764d12c204d9);
+            
+        
+
+        circle_marker_9cc03a571c8ab77222f4705f5d726d0a.bindPopup(popup_051a87e3104245d2f5f11a4a1b0ab1da)
+        ;
+
+        
+    
+    
+            circle_marker_9cc03a571c8ab77222f4705f5d726d0a.bindTooltip(
+                `<div>
+                     Evening Peak Users - Bali (Medium Income)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6962855e463014eb9ff25f8f18483c28 = L.circleMarker(
+                [-6.907763, 106.448595],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 16, "stroke": true, "weight": 1}
+            ).addTo(map_f0cfd2bcd9187ad9e8d9e8428aa47a64);
+        
+    
+        var popup_3059ea0dd8324b74cbbe5207e852b559 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_b6fe338ec041f96933786e1e95ceaeab = $(`<div id="html_b6fe338ec041f96933786e1e95ceaeab" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px; font-family: Arial;">             <h4 style="margin: 0; color: red;">Evening Peak Users</h4>             <hr style="margin: 5px 0;">             <b>📍 Region:</b> Jawa Barat<br>             <b>💰 Income Category:</b> High<br>             <b>💵 Rata-rata Income:</b> Rp 25,824,179<br>             <b>⚡ Rata-rata Daya:</b> 376.82 kW<br>             <b>📊 Std Deviasi Daya:</b> nan kW<br>             <b>📈 Jumlah Data:</b> 1 records<br>             <small><i>Ukuran marker = tingkat income<br>             Intensitas warna = tingkat konsumsi</i></small>         </div>         </div>`)[0];
+                popup_3059ea0dd8324b74cbbe5207e852b559.setContent(html_b6fe338ec041f96933786e1e95ceaeab);
+            
+        
+
+        circle_marker_6962855e463014eb9ff25f8f18483c28.bindPopup(popup_3059ea0dd8324b74cbbe5207e852b559)
+        ;
+
+        
+    
+    
+            circle_marker_6962855e463014eb9ff25f8f18483c28.bindTooltip(
+                `<div>
+                     Evening Peak Users - Jawa Barat (High Income)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5631e01484e7f90ef30cb0c850c54f2b = L.circleMarker(
+                [-7.629184, 111.622813],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.7124644415180893, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 16, "stroke": true, "weight": 1}
+            ).addTo(map_f0cfd2bcd9187ad9e8d9e8428aa47a64);
+        
+    
+        var popup_4f1c591144191059a356438ea3f9833d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e8316d5ea8fa840df66ee0327593a710 = $(`<div id="html_e8316d5ea8fa840df66ee0327593a710" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px; font-family: Arial;">             <h4 style="margin: 0; color: red;">Evening Peak Users</h4>             <hr style="margin: 5px 0;">             <b>📍 Region:</b> Jawa Timur<br>             <b>💰 Income Category:</b> High<br>             <b>💵 Rata-rata Income:</b> Rp 37,809,471<br>             <b>⚡ Rata-rata Daya:</b> 238.25 kW<br>             <b>📊 Std Deviasi Daya:</b> nan kW<br>             <b>📈 Jumlah Data:</b> 1 records<br>             <small><i>Ukuran marker = tingkat income<br>             Intensitas warna = tingkat konsumsi</i></small>         </div>         </div>`)[0];
+                popup_4f1c591144191059a356438ea3f9833d.setContent(html_e8316d5ea8fa840df66ee0327593a710);
+            
+        
+
+        circle_marker_5631e01484e7f90ef30cb0c850c54f2b.bindPopup(popup_4f1c591144191059a356438ea3f9833d)
+        ;
+
+        
+    
+    
+            circle_marker_5631e01484e7f90ef30cb0c850c54f2b.bindTooltip(
+                `<div>
+                     Evening Peak Users - Jawa Timur (High Income)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_05e42fc7c35211b2371d527e6c3fca26 = L.circleMarker(
+                [-7.85828, 113.053185],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6110755328824936, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 1}
+            ).addTo(map_f0cfd2bcd9187ad9e8d9e8428aa47a64);
+        
+    
+        var popup_bbaf791f5cf23b889efc1ff8bae0aa7e = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_be69c8042db8b86089e233f170166bae = $(`<div id="html_be69c8042db8b86089e233f170166bae" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px; font-family: Arial;">             <h4 style="margin: 0; color: red;">Evening Peak Users</h4>             <hr style="margin: 5px 0;">             <b>📍 Region:</b> Jawa Timur<br>             <b>💰 Income Category:</b> Low<br>             <b>💵 Rata-rata Income:</b> Rp 6,400,907<br>             <b>⚡ Rata-rata Daya:</b> 189.39 kW<br>             <b>📊 Std Deviasi Daya:</b> nan kW<br>             <b>📈 Jumlah Data:</b> 1 records<br>             <small><i>Ukuran marker = tingkat income<br>             Intensitas warna = tingkat konsumsi</i></small>         </div>         </div>`)[0];
+                popup_bbaf791f5cf23b889efc1ff8bae0aa7e.setContent(html_be69c8042db8b86089e233f170166bae);
+            
+        
+
+        circle_marker_05e42fc7c35211b2371d527e6c3fca26.bindPopup(popup_bbaf791f5cf23b889efc1ff8bae0aa7e)
+        ;
+
+        
+    
+    
+            circle_marker_05e42fc7c35211b2371d527e6c3fca26.bindTooltip(
+                `<div>
+                     Evening Peak Users - Jawa Timur (Low Income)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_88489cfc92e0834cf98ac6ac58cf0655 = L.circleMarker(
+                [-1.796603, 132.869183],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6843398197742625, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12, "stroke": true, "weight": 1}
+            ).addTo(map_f0cfd2bcd9187ad9e8d9e8428aa47a64);
+        
+    
+        var popup_c4cfe9a902673e107e976f3385ccc955 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_aacf1c8082b09b52254d096d90f7abc3 = $(`<div id="html_aacf1c8082b09b52254d096d90f7abc3" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px; font-family: Arial;">             <h4 style="margin: 0; color: red;">Evening Peak Users</h4>             <hr style="margin: 5px 0;">             <b>📍 Region:</b> Papua<br>             <b>💰 Income Category:</b> Medium<br>             <b>💵 Rata-rata Income:</b> Rp 17,297,814<br>             <b>⚡ Rata-rata Daya:</b> 224.69 kW<br>             <b>📊 Std Deviasi Daya:</b> nan kW<br>             <b>📈 Jumlah Data:</b> 1 records<br>             <small><i>Ukuran marker = tingkat income<br>             Intensitas warna = tingkat konsumsi</i></small>         </div>         </div>`)[0];
+                popup_c4cfe9a902673e107e976f3385ccc955.setContent(html_aacf1c8082b09b52254d096d90f7abc3);
+            
+        
+
+        circle_marker_88489cfc92e0834cf98ac6ac58cf0655.bindPopup(popup_c4cfe9a902673e107e976f3385ccc955)
+        ;
+
+        
+    
+    
+            circle_marker_88489cfc92e0834cf98ac6ac58cf0655.bindTooltip(
+                `<div>
+                     Evening Peak Users - Papua (Medium Income)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_acca6d9ba9091dfc794fcb49e5fbb96a = L.circleMarker(
+                [-2.424729, 105.154184],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.7957344039335954, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 16, "stroke": true, "weight": 1}
+            ).addTo(map_f0cfd2bcd9187ad9e8d9e8428aa47a64);
+        
+    
+        var popup_03f01319cecb44c1d865321dc5b6d682 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e220f04ce138d378a76f176253b81e3c = $(`<div id="html_e220f04ce138d378a76f176253b81e3c" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px; font-family: Arial;">             <h4 style="margin: 0; color: red;">Evening Peak Users</h4>             <hr style="margin: 5px 0;">             <b>📍 Region:</b> Sumatera Selatan<br>             <b>💰 Income Category:</b> High<br>             <b>💵 Rata-rata Income:</b> Rp 20,334,626<br>             <b>⚡ Rata-rata Daya:</b> 278.38 kW<br>             <b>📊 Std Deviasi Daya:</b> nan kW<br>             <b>📈 Jumlah Data:</b> 1 records<br>             <small><i>Ukuran marker = tingkat income<br>             Intensitas warna = tingkat konsumsi</i></small>         </div>         </div>`)[0];
+                popup_03f01319cecb44c1d865321dc5b6d682.setContent(html_e220f04ce138d378a76f176253b81e3c);
+            
+        
+
+        circle_marker_acca6d9ba9091dfc794fcb49e5fbb96a.bindPopup(popup_03f01319cecb44c1d865321dc5b6d682)
+        ;
+
+        
+    
+    
+            circle_marker_acca6d9ba9091dfc794fcb49e5fbb96a.bindTooltip(
+                `<div>
+                     Evening Peak Users - Sumatera Selatan (High Income)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_72a46cd7847e34919a9d340c37345929 = L.circleMarker(
+                [-6.178722, 106.865671],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7384829328893334, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 16, "stroke": true, "weight": 1}
+            ).addTo(map_f0cfd2bcd9187ad9e8d9e8428aa47a64);
+        
+    
+        var popup_a4c4a52629ac453b5fa574bf4421089f = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e18bdbcd7c8aec501a40203005bccbb4 = $(`<div id="html_e18bdbcd7c8aec501a40203005bccbb4" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px; font-family: Arial;">             <h4 style="margin: 0; color: blue;">Morning Users</h4>             <hr style="margin: 5px 0;">             <b>📍 Region:</b> Jakarta<br>             <b>💰 Income Category:</b> High<br>             <b>💵 Rata-rata Income:</b> Rp 42,441,462<br>             <b>⚡ Rata-rata Daya:</b> 250.79 kW<br>             <b>📊 Std Deviasi Daya:</b> 45.27 kW<br>             <b>📈 Jumlah Data:</b> 3 records<br>             <small><i>Ukuran marker = tingkat income<br>             Intensitas warna = tingkat konsumsi</i></small>         </div>         </div>`)[0];
+                popup_a4c4a52629ac453b5fa574bf4421089f.setContent(html_e18bdbcd7c8aec501a40203005bccbb4);
+            
+        
+
+        circle_marker_72a46cd7847e34919a9d340c37345929.bindPopup(popup_a4c4a52629ac453b5fa574bf4421089f)
+        ;
+
+        
+    
+    
+            circle_marker_72a46cd7847e34919a9d340c37345929.bindTooltip(
+                `<div>
+                     Morning Users - Jakarta (High Income)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_29faaa84aa458398ed45d826200666b3 = L.circleMarker(
+                [-6.101187, 106.91281],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7617250671782964, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12, "stroke": true, "weight": 1}
+            ).addTo(map_f0cfd2bcd9187ad9e8d9e8428aa47a64);
+        
+    
+        var popup_e4d2c7df5a8420e162e976f07121b7fc = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e6afd427307e60f9e58c04c5bf87b476 = $(`<div id="html_e6afd427307e60f9e58c04c5bf87b476" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px; font-family: Arial;">             <h4 style="margin: 0; color: blue;">Morning Users</h4>             <hr style="margin: 5px 0;">             <b>📍 Region:</b> Jakarta<br>             <b>💰 Income Category:</b> Medium<br>             <b>💵 Rata-rata Income:</b> Rp 11,046,542<br>             <b>⚡ Rata-rata Daya:</b> 261.99 kW<br>             <b>📊 Std Deviasi Daya:</b> nan kW<br>             <b>📈 Jumlah Data:</b> 1 records<br>             <small><i>Ukuran marker = tingkat income<br>             Intensitas warna = tingkat konsumsi</i></small>         </div>         </div>`)[0];
+                popup_e4d2c7df5a8420e162e976f07121b7fc.setContent(html_e6afd427307e60f9e58c04c5bf87b476);
+            
+        
+
+        circle_marker_29faaa84aa458398ed45d826200666b3.bindPopup(popup_e4d2c7df5a8420e162e976f07121b7fc)
+        ;
+
+        
+    
+    
+            circle_marker_29faaa84aa458398ed45d826200666b3.bindTooltip(
+                `<div>
+                     Morning Users - Jakarta (Medium Income)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5c788896716bbbb2793165ccbf7883cc = L.circleMarker(
+                [-7.406159, 108.809716],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.6618944875178825, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12, "stroke": true, "weight": 1}
+            ).addTo(map_f0cfd2bcd9187ad9e8d9e8428aa47a64);
+        
+    
+        var popup_8919d81f356532ff237dd04abce6ff8f = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_7e06a0db44516fb352458daf8e054b52 = $(`<div id="html_7e06a0db44516fb352458daf8e054b52" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px; font-family: Arial;">             <h4 style="margin: 0; color: blue;">Morning Users</h4>             <hr style="margin: 5px 0;">             <b>📍 Region:</b> Jawa Tengah<br>             <b>💰 Income Category:</b> Medium<br>             <b>💵 Rata-rata Income:</b> Rp 11,836,581<br>             <b>⚡ Rata-rata Daya:</b> 213.88 kW<br>             <b>📊 Std Deviasi Daya:</b> nan kW<br>             <b>📈 Jumlah Data:</b> 1 records<br>             <small><i>Ukuran marker = tingkat income<br>             Intensitas warna = tingkat konsumsi</i></small>         </div>         </div>`)[0];
+                popup_8919d81f356532ff237dd04abce6ff8f.setContent(html_7e06a0db44516fb352458daf8e054b52);
+            
+        
+
+        circle_marker_5c788896716bbbb2793165ccbf7883cc.bindPopup(popup_8919d81f356532ff237dd04abce6ff8f)
+        ;
+
+        
+    
+    
+            circle_marker_5c788896716bbbb2793165ccbf7883cc.bindTooltip(
+                `<div>
+                     Morning Users - Jawa Tengah (Medium Income)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e1e64f05a60e500df79a55ef20e1c066 = L.circleMarker(
+                [-1.686329, 119.414306],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.6385486029642604, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 16, "stroke": true, "weight": 1}
+            ).addTo(map_f0cfd2bcd9187ad9e8d9e8428aa47a64);
+        
+    
+        var popup_175c3e57643750aa53f89f64665bc3d5 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_424e78ed8b1a3c09f9281bd7abc4f4dc = $(`<div id="html_424e78ed8b1a3c09f9281bd7abc4f4dc" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px; font-family: Arial;">             <h4 style="margin: 0; color: blue;">Morning Users</h4>             <hr style="margin: 5px 0;">             <b>📍 Region:</b> Sulawesi Selatan<br>             <b>💰 Income Category:</b> High<br>             <b>💵 Rata-rata Income:</b> Rp 49,643,978<br>             <b>⚡ Rata-rata Daya:</b> 202.63 kW<br>             <b>📊 Std Deviasi Daya:</b> nan kW<br>             <b>📈 Jumlah Data:</b> 1 records<br>             <small><i>Ukuran marker = tingkat income<br>             Intensitas warna = tingkat konsumsi</i></small>         </div>         </div>`)[0];
+                popup_175c3e57643750aa53f89f64665bc3d5.setContent(html_424e78ed8b1a3c09f9281bd7abc4f4dc);
+            
+        
+
+        circle_marker_e1e64f05a60e500df79a55ef20e1c066.bindPopup(popup_175c3e57643750aa53f89f64665bc3d5)
+        ;
+
+        
+    
+    
+            circle_marker_e1e64f05a60e500df79a55ef20e1c066.bindTooltip(
+                `<div>
+                     Morning Users - Sulawesi Selatan (High Income)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d07b05e7a09cae53028465c0ec3acc05 = L.circleMarker(
+                [3.697219, 99.399884],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7829378462905245, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 16, "stroke": true, "weight": 1}
+            ).addTo(map_f0cfd2bcd9187ad9e8d9e8428aa47a64);
+        
+    
+        var popup_eb57991bea652bb3e9fb7f6fd26d9521 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_cf5062ab7955cb6f93fe23b9c155edfa = $(`<div id="html_cf5062ab7955cb6f93fe23b9c155edfa" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px; font-family: Arial;">             <h4 style="margin: 0; color: blue;">Morning Users</h4>             <hr style="margin: 5px 0;">             <b>📍 Region:</b> Sumatera Utara<br>             <b>💰 Income Category:</b> High<br>             <b>💵 Rata-rata Income:</b> Rp 32,552,242<br>             <b>⚡ Rata-rata Daya:</b> 272.21 kW<br>             <b>📊 Std Deviasi Daya:</b> nan kW<br>             <b>📈 Jumlah Data:</b> 1 records<br>             <small><i>Ukuran marker = tingkat income<br>             Intensitas warna = tingkat konsumsi</i></small>         </div>         </div>`)[0];
+                popup_eb57991bea652bb3e9fb7f6fd26d9521.setContent(html_cf5062ab7955cb6f93fe23b9c155edfa);
+            
+        
+
+        circle_marker_d07b05e7a09cae53028465c0ec3acc05.bindPopup(popup_eb57991bea652bb3e9fb7f6fd26d9521)
+        ;
+
+        
+    
+    
+            circle_marker_d07b05e7a09cae53028465c0ec3acc05.bindTooltip(
+                `<div>
+                     Morning Users - Sumatera Utara (High Income)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+</script>
+</html>

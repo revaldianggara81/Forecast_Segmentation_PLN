@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_925305b5fe0d93e2b7f307cddaaece8e {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_925305b5fe0d93e2b7f307cddaaece8e" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_925305b5fe0d93e2b7f307cddaaece8e = L.map(
+                "map_925305b5fe0d93e2b7f307cddaaece8e",
+                {
+                    center: [-2.5, 118.0],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 5,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_e0fa968a09bfffe8bf060114dbeadc72 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_e0fa968a09bfffe8bf060114dbeadc72.addTo(map_925305b5fe0d93e2b7f307cddaaece8e);
+        
+    
+            var marker_d8a2e489f190e82a297ce7b4975405d5 = L.marker(
+                [7.160614575858005, 110.24756621760145],
+                {
+}
+            ).addTo(map_925305b5fe0d93e2b7f307cddaaece8e);
+        
+    
+            var icon_34a1d29a68a8490aa3aeade6414cd59f = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_3b87e92f657e96de9528b10d4e3880fe = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_bc198624e3a74cd8d37c3bf7727d65bd = $(`<div id="html_bc198624e3a74cd8d37c3bf7727d65bd" style="width: 100.0%; height: 100.0%;">Cluster: Evening Peak Users<br>Region: Jawa Tengah<br>Rata-rata Daya: 27.91 kW</div>`)[0];
+                popup_3b87e92f657e96de9528b10d4e3880fe.setContent(html_bc198624e3a74cd8d37c3bf7727d65bd);
+            
+        
+
+        marker_d8a2e489f190e82a297ce7b4975405d5.bindPopup(popup_3b87e92f657e96de9528b10d4e3880fe)
+        ;
+
+        
+    
+    
+                marker_d8a2e489f190e82a297ce7b4975405d5.setIcon(icon_34a1d29a68a8490aa3aeade6414cd59f);
+            
+    
+            var marker_d41b03e05d71595a6f8cbb13d55bc576 = L.marker(
+                [4.243601508893168, 137.99566294593146],
+                {
+}
+            ).addTo(map_925305b5fe0d93e2b7f307cddaaece8e);
+        
+    
+            var icon_7d61966a7963d589f2b94c48077dae52 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_36ba7a3e159d823dba1a78e56e200538 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_3e53c91e698c1724abab2940632a237a = $(`<div id="html_3e53c91e698c1724abab2940632a237a" style="width: 100.0%; height: 100.0%;">Cluster: Evening Peak Users<br>Region: Papua<br>Rata-rata Daya: 65.56 kW</div>`)[0];
+                popup_36ba7a3e159d823dba1a78e56e200538.setContent(html_3e53c91e698c1724abab2940632a237a);
+            
+        
+
+        marker_d41b03e05d71595a6f8cbb13d55bc576.bindPopup(popup_36ba7a3e159d823dba1a78e56e200538)
+        ;
+
+        
+    
+    
+                marker_d41b03e05d71595a6f8cbb13d55bc576.setIcon(icon_7d61966a7963d589f2b94c48077dae52);
+            
+    
+            var marker_658438d6da56fc35103bdc244f7f4659 = L.marker(
+                [7.322559482203875, 112.7569562470269],
+                {
+}
+            ).addTo(map_925305b5fe0d93e2b7f307cddaaece8e);
+        
+    
+            var icon_1a6dd5e51611b33f9949cd0a65b0af61 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_7141c47fee114c08b843bfcbfade0144 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_60d85b02222320a55b14cef8d650e728 = $(`<div id="html_60d85b02222320a55b14cef8d650e728" style="width: 100.0%; height: 100.0%;">Cluster: Evening Peak Users<br>Region: Jawa Timur<br>Rata-rata Daya: 84.50 kW</div>`)[0];
+                popup_7141c47fee114c08b843bfcbfade0144.setContent(html_60d85b02222320a55b14cef8d650e728);
+            
+        
+
+        marker_658438d6da56fc35103bdc244f7f4659.bindPopup(popup_7141c47fee114c08b843bfcbfade0144)
+        ;
+
+        
+    
+    
+                marker_658438d6da56fc35103bdc244f7f4659.setIcon(icon_1a6dd5e51611b33f9949cd0a65b0af61);
+            
+    
+            var marker_17cc460dcefcbc6baa54f430e4575060 = L.marker(
+                [6.166786962543874, 106.90400427856852],
+                {
+}
+            ).addTo(map_925305b5fe0d93e2b7f307cddaaece8e);
+        
+    
+            var icon_a7ba7286a7006a21911c636905ef26d0 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "purple",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_fd888a6d5298dd6038cc8c73140ef1a5 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_dea6f78e2521c053d6591f4d97987169 = $(`<div id="html_dea6f78e2521c053d6591f4d97987169" style="width: 100.0%; height: 100.0%;">Cluster: Evening Peak Users<br>Region: DKI Jakarta<br>Rata-rata Daya: 106.63 kW</div>`)[0];
+                popup_fd888a6d5298dd6038cc8c73140ef1a5.setContent(html_dea6f78e2521c053d6591f4d97987169);
+            
+        
+
+        marker_17cc460dcefcbc6baa54f430e4575060.bindPopup(popup_fd888a6d5298dd6038cc8c73140ef1a5)
+        ;
+
+        
+    
+    
+                marker_17cc460dcefcbc6baa54f430e4575060.setIcon(icon_a7ba7286a7006a21911c636905ef26d0);
+            
+</script>
+</html>
