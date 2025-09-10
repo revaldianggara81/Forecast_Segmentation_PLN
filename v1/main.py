@@ -13,6 +13,7 @@ from zipfile import ZipFile
 import folium
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import MinMaxScaler
 from sklearn.decomposition import PCA
 from openai import OpenAI
 import matplotlib.ticker as ticker
@@ -711,7 +712,7 @@ if __name__ == "__main__":
     demo.launch(
         share=True,
         server_name="0.0.0.0",
-        server_port=7860,
+        # server_port=7860,
         show_error=True,
         quiet=False
     )

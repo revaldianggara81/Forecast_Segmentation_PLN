@@ -7,9 +7,9 @@ from statsmodels.tsa.arima.model import ARIMA
 from statsmodels.tsa.statespace.sarimax import SARIMAX
 from sklearn.metrics import mean_squared_error, mean_absolute_error
 import warnings
-warnings.filterwarnings('ignore')
+warnings.filterwarnings("ignore")
 
-# ========== Load Dataset ==========
+# ===================== LOAD DATA =====================
 df_raw = pd.read_csv("data/global_energy_consumption.csv")
 
 # Normalisasi nama kolom
@@ -23,208 +23,221 @@ else:
 country_col = "Country" if "Country" in df_raw.columns else "Entity"
 year_col = "Year"
 
-# Buat kolom Date dari Year (pakai Januari tiap tahun)
+# Buat kolom Date dari Year → Januari tiap tahun
 df_raw["Date"] = pd.to_datetime(df_raw[year_col].astype(str) + "-01-01")
 df_raw = df_raw[[country_col, "Date", value_col]].dropna()
 
 available_countries = sorted(df_raw[country_col].unique().tolist())
 
 
-# ========== AI Forecasting Algorithms ==========
+# ===================== AI MODELS =====================
 def arima_forecast(train_data, steps=12):
     try:
         model = ARIMA(train_data, order=(2, 1, 2))
         model_fit = model.fit()
         return np.array(model_fit.forecast(steps=steps)).ravel()
-    except Exception as e:
-        print(f"ARIMA Error: {e}")
+    except:
         return None
 
 def sarima_forecast(train_data, steps=12):
     try:
-        model = SARIMAX(train_data, order=(1, 1, 1), seasonal_order=(1, 1, 1, 12))
-        model_fit = model.fit()
+        model = SARIMAX(train_data, order=(1, 1, 1),
+                        seasonal_order=(1, 1, 1, 12))
+        model_fit = model.fit(disp=False)
         return np.array(model_fit.forecast(steps=steps)).ravel()
-    except Exception as e:
-        print(f"SARIMA Error: {e}")
+    except:
         return None
 
-def lstm_forecast(train_data, steps=12):
-    """Pseudo LSTM using trend + seasonal pattern"""
-    try:
-        data = np.array(train_data).ravel()
-        x = np.arange(len(data))
-        trend_coef = np.polyfit(x, data, 1)[0]
-        last_12 = data[-12:]
-        seasonal_pattern = last_12 - np.mean(last_12)
-
-        forecast, last_value = [], data[-1]
-        for i in range(steps):
-            trend_component = trend_coef * (i + 1)
-            seasonal_component = seasonal_pattern[i % 12]
-            next_value = last_value + trend_component + seasonal_component * 0.5
-            forecast.append(next_value)
-        return np.array(forecast)
-    except Exception as e:
-        print(f"LSTM Error: {e}")
-        return None
-
-def nbeats_forecast(train_data, steps=12):
-    """Pseudo N-BEATS using trend + seasonality blocks"""
-    try:
-        data = np.array(train_data).ravel()
-        x = np.arange(len(data))
-        trend_coef = np.polyfit(x, data, 2)
-        trend_forecast = np.polyval(trend_coef, np.arange(len(data), len(data) + steps))
-
-        seasonal_period = 12
-        if len(data) >= seasonal_period:
-            seasonal_data = data[-seasonal_period:]
-            seasonal_pattern = seasonal_data - np.mean(seasonal_data)
-            seasonal_forecast = np.tile(seasonal_pattern, (steps // seasonal_period) + 1)[:steps]
-        else:
-            seasonal_forecast = np.zeros(steps)
-
-        return trend_forecast + seasonal_forecast
-    except Exception as e:
-        print(f"N-BEATS Error: {e}")
-        return None
-
-
-# ========== Assumption Algorithms ==========
-def monthly_assumption_forecast(train_data, steps=12):
+def lstm_like_forecast(train_data, steps=12):
+    """Pseudo-LSTM: tren linear + pola musiman"""
     data = np.array(train_data).ravel()
+    x = np.arange(len(data))
+    trend_coef = np.polyfit(x, data, 1)[0]
     last_12 = data[-12:]
-    monthly_avg_growth = (last_12[-1] - last_12[0]) / 12
-    predictions, last_val = [], last_12[-1]
+    seasonal_pattern = last_12 - np.mean(last_12)
+
+    forecast, last_val = [], data[-1]
     for i in range(steps):
-        new_val = last_val + monthly_avg_growth
-        predictions.append(new_val)
-        last_val = new_val
-    return np.array(predictions)
+        trend_component = trend_coef * (i + 1)
+        seasonal_component = seasonal_pattern[i % 12]
+        next_val = last_val + trend_component + 0.5 * seasonal_component
+        forecast.append(next_val)
+    return np.array(forecast)
+
+def nbeats_like_forecast(train_data, steps=12):
+    """Pseudo N-BEATS: quadratic trend + pola musiman"""
+    data = np.array(train_data).ravel()
+    x = np.arange(len(data))
+    trend_coef = np.polyfit(x, data, 2)
+    trend_forecast = np.polyval(trend_coef,
+                                np.arange(len(data), len(data) + steps))
+
+    if len(data) >= 12:
+        seasonal_data = data[-12:]
+        seasonal_pattern = seasonal_data - np.mean(seasonal_data)
+        seasonal_forecast = np.tile(seasonal_pattern,
+                                    (steps // 12) + 1)[:steps]
+    else:
+        seasonal_forecast = np.zeros(steps)
+
+    return trend_forecast + seasonal_forecast
+
+
+# ===================== ASSUMPTIONS =====================
+def monthly_assumption_forecast(train_data, steps=12):
+    """
+    Monthly assumption:
+    - Ambil 12 bulan terakhir
+    - Hitung rata-rata konsumsi bulanan
+    - Tambah ke nilai terakhir, ulangi sampai 12 bulan
+    """
+    data = np.array(train_data).ravel()
+    last_12 = data[-12:] if len(data) >= 12 else data
+    monthly_avg = np.sum(last_12) / 12
+
+    preds, last_val = [], data[-1]
+    for i in range(steps):
+        next_val = last_val + (monthly_avg - last_val) * 0.1
+        preds.append(next_val)
+        last_val = next_val
+    return np.array(preds)
+
 
 def yearly_assumption_forecast(train_data, steps=12):
+    """
+    Yearly assumption:
+    - Ambil 5 tahun terakhir (60 bulan)
+    - Hitung rata-rata growth tahunan
+    - Tambahkan ke total tahun terakhir
+    - Distribusi ke 12 bulan berikutnya pakai proporsi tahun terakhir
+    """
     data = np.array(train_data).ravel()
     last_5y = data[-60:] if len(data) >= 60 else data
-    yearly_growth = (last_5y[-1] - last_5y[0]) / 5 if len(last_5y) >= 24 else 0
-    base = np.mean(data[-12:])
-    return np.linspace(base, base + yearly_growth/12, steps)
+    years = len(last_5y) // 12
+
+    if years >= 2:
+        yearly_totals = [np.sum(last_5y[i * 12:(i + 1) * 12])
+                         for i in range(years)]
+        yearly_growth = (yearly_totals[-1] - yearly_totals[0]) / (years - 1)
+    else:
+        yearly_growth = 0
+
+    last_year = data[-12:] if len(data) >= 12 else data
+    last_year_total = np.sum(last_year)
+    next_year_total = last_year_total + yearly_growth
+
+    proportions = (last_year / last_year_total
+                   if len(last_year) == 12 else np.ones(12) / 12)
+    return next_year_total * proportions[:steps]
 
 
-# ========== Core Forecast Function ==========
+# ===================== FORECAST FUNCTION =====================
 def forecast_last_year(country, ai_algorithm="ARIMA"):
-    data = df_raw[df_raw[country_col] == country].copy()
-    data = data.groupby("Date", as_index=False)[value_col].sum()
-    data = data.rename(columns={value_col: "consumption"})
+    df = df_raw[df_raw[country_col] == country].copy()
+    df = df.groupby("Date", as_index=False)[value_col].sum()
+    df = df.rename(columns={value_col: "consumption"})
 
-    # Interpolasi tahunan → bulanan
-    data = data.set_index("Date").sort_index().resample("MS").interpolate(method="linear")
+    # Resample ke bulanan
+    df = df.set_index("Date").resample("MS").interpolate(method="linear")
 
-    if len(data) < 72:
+    if len(df) < 72:  # minimal 6 tahun data
         return go.Figure(), pd.DataFrame(), pd.DataFrame()
 
-    train, test = data[:-12], data[-12:]
+    train, test = df[:-12], df[-12:]
 
-    # AI forecast
-    ai_algorithms = {
+    # AI model
+    models = {
         "ARIMA": arima_forecast,
         "SARIMA": sarima_forecast,
-        "LSTM": lstm_forecast,
-        "N-BEATS": nbeats_forecast
+        "LSTM": lstm_like_forecast,
+        "N-BEATS": nbeats_like_forecast
     }
-    ai_func = ai_algorithms.get(ai_algorithm, arima_forecast)
-    ai_forecast = ai_func(train.values.ravel(), steps=12)
-    if ai_forecast is None:
-        ai_forecast = np.repeat(train.iloc[-1], 12)
-    ai_forecast = pd.Series(ai_forecast, index=test.index)
+    ai_func = models.get(ai_algorithm, arima_forecast)
+    ai_pred = ai_func(train.values.ravel(), 12)
+    ai_pred = (np.repeat(train.iloc[-1], 12)
+               if ai_pred is None else ai_pred)
+    ai_pred = pd.Series(ai_pred, index=test.index)
 
     # Assumptions
-    monthly_pred = pd.Series(monthly_assumption_forecast(train.values.ravel(), 12), index=test.index)
-    yearly_pred = pd.Series(yearly_assumption_forecast(train.values.ravel(), 12), index=test.index)
+    monthly_pred = pd.Series(monthly_assumption_forecast(train.values.ravel(), 12),
+                             index=test.index)
+    yearly_pred = pd.Series(yearly_assumption_forecast(train.values.ravel(), 12),
+                            index=test.index)
 
     # Metrics
-    mse_ai = mean_squared_error(test.values.ravel(), ai_forecast.values.ravel())
-    mae_ai = mean_absolute_error(test.values.ravel(), ai_forecast.values.ravel())
-    mse_monthly = mean_squared_error(test.values.ravel(), monthly_pred.values.ravel())
-    mae_monthly = mean_absolute_error(test.values.ravel(), monthly_pred.values.ravel())
-    mse_yearly = mean_squared_error(test.values.ravel(), yearly_pred.values.ravel())
-    mae_yearly = mean_absolute_error(test.values.ravel(), yearly_pred.values.ravel())
+    mse_ai = mean_squared_error(test.values.ravel(), ai_pred.values)
+    mae_ai = mean_absolute_error(test.values.ravel(), ai_pred.values)
+    mse_monthly = mean_squared_error(test.values.ravel(), monthly_pred.values)
+    mae_monthly = mean_absolute_error(test.values.ravel(), monthly_pred.values)
+    mse_yearly = mean_squared_error(test.values.ravel(), yearly_pred.values)
+    mae_yearly = mean_absolute_error(test.values.ravel(), yearly_pred.values)
 
-    # Plot
+    # Chart
     fig = go.Figure()
     fig.add_trace(go.Scatter(x=train[-24:].index, y=train[-24:].values.ravel(),
-                             mode="lines", name="Historical Data", line=dict(color="lightgray")))
+                             mode="lines", name="Historical Data",
+                             line=dict(color="gray")))
     fig.add_trace(go.Scatter(x=test.index, y=test.values.ravel(),
-                             mode="lines+markers", name="Real Data", line=dict(color="blue")))
-    fig.add_trace(go.Scatter(x=test.index, y=ai_forecast,
-                             mode="lines+markers", name=f"{ai_algorithm} Forecast", line=dict(color="red")))
+                             mode="lines", name="Actual Data",
+                             line=dict(color="blue", width=3)))
+    fig.add_trace(go.Scatter(x=test.index, y=ai_pred,
+                             mode="lines", name=f"{ai_algorithm} Forecast",
+                             line=dict(color="orange", dash="dash")))
     fig.add_trace(go.Scatter(x=test.index, y=monthly_pred,
-                             mode="lines+markers", name="Monthly Assumption", line=dict(color="green")))
+                             mode="lines", name="Monthly Assumption",
+                             line=dict(color="green", dash="dot")))
     fig.add_trace(go.Scatter(x=test.index, y=yearly_pred,
-                             mode="lines+markers", name="Yearly Assumption", line=dict(color="orange")))
+                             mode="lines", name="Yearly Assumption",
+                             line=dict(color="red", dash="dashdot")))
 
     fig.update_layout(
-        title=f"Electricity Consumption Forecast - {country} ({ai_algorithm})<br>"
-              f"<sub>MSE: AI={mse_ai:.2e}, Monthly={mse_monthly:.2e}, Yearly={mse_yearly:.2e}</sub>",
-        xaxis_title="Date", yaxis_title="Consumption",
+        title=f"Energy Consumption Forecast - {country} ({ai_algorithm})",
+        xaxis_title="Date", yaxis_title="Energy Consumption",
         template="plotly_white", height=600
     )
 
-    # Result tables
-    result_table = pd.DataFrame({
+    # Tables
+    detail = pd.DataFrame({
         "Month": test.index.strftime("%Y-%m"),
-        "Real": test.values.ravel(),
-        "AI_Predicted": ai_forecast.values.ravel(),
-        "Monthly_Assumption": monthly_pred.values.ravel(),
-        "Yearly_Assumption": yearly_pred.values.ravel()
-    })
+        "Actual": test.values.ravel(),
+        "AI_Forecast": ai_pred.values,
+        "Monthly_Assumption": monthly_pred.values,
+        "Yearly_Assumption": yearly_pred.values
+    }).round(2)
 
-    summary_stats = pd.DataFrame({
+    summary = pd.DataFrame({
         "Metric": ["MSE", "MAE"],
-        f"{ai_algorithm}": [f"{mse_ai:.2e}", f"{mae_ai:.2f}"],
+        ai_algorithm: [f"{mse_ai:.2e}", f"{mae_ai:.2f}"],
         "Monthly Assumption": [f"{mse_monthly:.2e}", f"{mae_monthly:.2f}"],
         "Yearly Assumption": [f"{mse_yearly:.2e}", f"{mae_yearly:.2f}"]
     })
 
-    return fig, result_table, summary_stats
+    return fig, detail, summary
 
 
-# ========== Gradio UI ==========
+# ===================== GRADIO UI =====================
 def create_forecasting_ui():
-    gr.Markdown("## Electricity Consumption Forecasting (AI vs Assumptions)")
-
+    gr.Markdown("## Energy Consumption Forecasting (AI vs Assumptions)")
     default_country = "Indonesia" if "Indonesia" in available_countries else available_countries[0]
 
     with gr.Row():
-        country_dropdown = gr.Dropdown(choices=available_countries, label="Select Country", value=default_country)
-        algorithm_dropdown = gr.Dropdown(choices=["ARIMA", "SARIMA", "LSTM", "N-BEATS"],
-                                         label="AI Algorithm", value="ARIMA")
+        country = gr.Dropdown(choices=available_countries, value=default_country,
+                              label="Select Country")
+        algo = gr.Dropdown(choices=["ARIMA", "SARIMA", "LSTM", "N-BEATS"],
+                           value="ARIMA", label="AI Algorithm")
 
     with gr.Row():
-        submit_btn = gr.Button("Run Forecast", variant="primary")
-        clear_btn = gr.Button("Reset", variant="secondary")
+        run_btn = gr.Button("Run Forecast", variant="primary")
+        reset_btn = gr.Button("Reset", variant="secondary")
 
-    with gr.Row():
-        forecast_chart = gr.Plot(label="Forecast Comparison Chart")
+    chart = gr.Plot(label="Forecast Comparison Chart")
+    detail = gr.Dataframe(label="Detailed Results (12 months)", interactive=False)
+    summary = gr.Dataframe(label="Summary Statistics", interactive=False)
 
-    # with gr.Row():
-    #     result_table = gr.Dataframe(label="Detailed Results (Last 12 months)", interactive=False)
-    #     summary_table = gr.Dataframe(label="Summary Statistics", interactive=False)
-    with gr.Row():
-        gr.Markdown("### Detailed Results (Last 12 Months)")
-    result_table = gr.Dataframe(label="Monthly Data & Cost Analysis", interactive=False)
+    run_btn.click(forecast_last_year,
+                  inputs=[country, algo],
+                  outputs=[chart, detail, summary])
+    reset_btn.click(lambda: (go.Figure(), pd.DataFrame(), pd.DataFrame()),
+                    outputs=[chart, detail, summary])
 
-    with gr.Row():
-        gr.Markdown("### Summary Statistics")
-    summary_table = gr.Dataframe(label="Performance Comparison", interactive=False)
-
-    submit_btn.click(
-        forecast_last_year,
-        inputs=[country_dropdown, algorithm_dropdown],
-        outputs=[forecast_chart, result_table, summary_table]
-    )
-
-    clear_btn.click(lambda: (go.Figure(), pd.DataFrame(), pd.DataFrame()),
-                    outputs=[forecast_chart, result_table, summary_table])
-
-    return forecast_chart, result_table, summary_table
+    return chart, detail, summary
